@@ -179,6 +179,7 @@ DEPENDENCIES
   faker
   puma (~> 5.0)
   rails (~> 7.0.0)
+  rake
   rspec-rails
   shoulda-matchers
   sqlite3 (~> 1.4)

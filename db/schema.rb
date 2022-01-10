@@ -10,6 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2021_12_24_234136) do
 
+  create_table "albums", force: :cascade do |t|
+    t.string "name"
+    t.string "image"
+    t.string "spotify_url"
+    t.integer "total_tracks"
+    t.string "spotify_id"
+    t.integer "artist_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["artist_id"], name: "index_albums_on_artist_id"
+  end
+
+  create_table "artists", force: :cascade do |t|
+    t.string "name"
+    t.string "image"
+    t.string "genres"
+    t.integer "popularity"
+    t.string "spotify_url"
+    t.string "spotify_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "songs", force: :cascade do |t|
+    t.string "name"
+    t.string "spotify_url"
+    t.string "preview_url"
+    t.integer "duration_ms"
+    t.string "explicit"
+    t.string "spotify_id"
+    t.integer "album_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["album_id"], name: "index_songs_on_album_id"
+  end
+
+  add_foreign_key "albums", "artists"
+  add_foreign_key "songs", "albums"
 end
