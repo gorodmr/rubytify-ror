@@ -53,7 +53,6 @@ task :loadartists => :environment do
   def getAlbumsByArtist(token, artistId)
     url = URI("https://api.spotify.com/v1/artists/#{artistId}/albums")
 
-    puts url
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
 
@@ -69,6 +68,7 @@ task :loadartists => :environment do
   def getSongsByAlbum(token, albumId)
     url = URI("https://api.spotify.com/v1/albums/#{albumId}/tracks")
 
+    puts url
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
 
@@ -85,8 +85,10 @@ task :loadartists => :environment do
 
     unless songs.blank?
       songs.each { |i|
-        Song.create(album: album, name: i["name"], preview_url: i["preview_url"], spotify_url: i["href"],
+        song = Song.create(album: album, name: i["name"], preview_url: i["preview_url"], spotify_url: i["href"],
                     duration_ms: i["duration_ms"], explicit: i["explicit"], spotify_id: i["id"])
+        song.save
+        puts song.name
       }
     end
   end

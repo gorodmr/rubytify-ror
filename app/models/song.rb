@@ -1,8 +1,5 @@
 class Song < ApplicationRecord
-
-  #self.primary_key = 'spotify_id'
   belongs_to :album
-
   validates :album, presence:true
   validates :name, presence:true
   validates :preview_url, presence:true
